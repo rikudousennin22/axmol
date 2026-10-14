@@ -41,16 +41,8 @@ void ShaderModuleImpl::compileShader()
     if (!_shader)
         return;
 
-    std::string source{reinterpret_cast<const char*>(_codeSpan.data()), _codeSpan.size()};
-    size_t pos = 0;
-    while ((pos = source.find("precision mediump float;", pos)) != std::string::npos)
-    {
-        source.replace(pos, 24, "precision highp float;");
-        pos += 22;
-    }
-
-    const GLchar* sourcePtr = source.c_str();
-    GLint sourceLen         = static_cast<GLint>(source.size());
+    const GLchar* sourcePtr = reinterpret_cast<const GLchar*>(_codeSpan.data());
+    GLint sourceLen         = static_cast<GLint>(_codeSpan.size());
     glShaderSource(_shader, 1, &sourcePtr, &sourceLen);
     glCompileShader(_shader);
 
