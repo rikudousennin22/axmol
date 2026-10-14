@@ -52,25 +52,44 @@ set(lua_bindings_adapter_headers
 set(lua_bindings_adapter_files
   adapters/base/axlua_base_adapter.cpp
   adapters/physics2d/axlua_physics2d_adapter.cpp
-  adapters/3d/axlua_3d_adapter.cpp
-  adapters/sceneext/CustomGUIReader.cpp
-  adapters/sceneext/axlua_sceneext_adapter.cpp
-  adapters/sceneext/lua_sceneext_conversions.cpp
-  adapters/sceneio/axlua_sceneio_adapter.cpp
   adapters/extension/axlua_extension_adapter.cpp
   adapters/network/axlua_network_adapter.cpp
   adapters/network/lua_xml_http_request.cpp
   adapters/network/lua_downloader.cpp
   adapters/network/lua_websocket.cpp
-  adapters/spine/axlua_spine_adapter.cpp
-  adapters/spine/LuaSkeletonAnimation.cpp
   adapters/ui/axlua_ui_adapter.cpp
-  adapters/physics3d/axlua_physics3d_adapter.cpp
-  adapters/navmesh/axlua_navmesh_conversions.cpp
-  adapters/navmesh/axlua_navmesh_adapter.cpp
-  adapters/fairygui/axlua_fairygui_adapter.cpp
-  adapters/fairygui/axlua_fairygui_conversions.cpp
 )
+
+if(AX_ENABLE_3D)
+  list(APPEND lua_bindings_adapter_files adapters/3d/axlua_3d_adapter.cpp)
+endif()
+if(AX_ENABLE_EXT_SCENEEXT)
+  list(APPEND lua_bindings_adapter_files
+    adapters/sceneext/CustomGUIReader.cpp
+    adapters/sceneext/axlua_sceneext_adapter.cpp
+    adapters/sceneext/lua_sceneext_conversions.cpp)
+endif()
+if(AX_ENABLE_EXT_SCENEIO)
+  list(APPEND lua_bindings_adapter_files adapters/sceneio/axlua_sceneio_adapter.cpp)
+endif()
+if(AX_ENABLE_EXT_SPINE)
+  list(APPEND lua_bindings_adapter_files
+    adapters/spine/axlua_spine_adapter.cpp
+    adapters/spine/LuaSkeletonAnimation.cpp)
+endif()
+if(AX_ENABLE_PHYSICS_3D)
+  list(APPEND lua_bindings_adapter_files adapters/physics3d/axlua_physics3d_adapter.cpp)
+endif()
+if(AX_ENABLE_NAVMESH)
+  list(APPEND lua_bindings_adapter_files
+    adapters/navmesh/axlua_navmesh_conversions.cpp
+    adapters/navmesh/axlua_navmesh_adapter.cpp)
+endif()
+if(AX_ENABLE_EXT_FAIRYGUI)
+  list(APPEND lua_bindings_adapter_files
+    adapters/fairygui/axlua_fairygui_adapter.cpp
+    adapters/fairygui/axlua_fairygui_conversions.cpp)
+endif()
 
 set(lua_bindings_generated_headers
   generated/axlua_audioengine_gen.h
@@ -89,20 +108,35 @@ set(lua_bindings_generated_headers
 )
 
 set(lua_bindings_generated_files
-  generated/axlua_3d_gen.cpp
   generated/axlua_base_gen.cpp
   generated/axlua_extension_gen.cpp
   generated/axlua_physics2d_gen.cpp
-  generated/axlua_spine_gen.cpp
-  generated/axlua_sceneext_gen.cpp
-  generated/axlua_sceneio_gen.cpp
   generated/axlua_ui_gen.cpp
   generated/axlua_audioengine_gen.cpp
-  generated/axlua_physics3d_gen.cpp
-  generated/axlua_navmesh_gen.cpp
   generated/axlua_rhi_gen.cpp
-  generated/axlua_fairygui_gen.cpp
 )
+
+if(AX_ENABLE_3D)
+  list(APPEND lua_bindings_generated_files generated/axlua_3d_gen.cpp)
+endif()
+if(AX_ENABLE_EXT_SPINE)
+  list(APPEND lua_bindings_generated_files generated/axlua_spine_gen.cpp)
+endif()
+if(AX_ENABLE_EXT_SCENEEXT)
+  list(APPEND lua_bindings_generated_files generated/axlua_sceneext_gen.cpp)
+endif()
+if(AX_ENABLE_EXT_SCENEIO)
+  list(APPEND lua_bindings_generated_files generated/axlua_sceneio_gen.cpp)
+endif()
+if(AX_ENABLE_PHYSICS_3D)
+  list(APPEND lua_bindings_generated_files generated/axlua_physics3d_gen.cpp)
+endif()
+if(AX_ENABLE_NAVMESH)
+  list(APPEND lua_bindings_generated_files generated/axlua_navmesh_gen.cpp)
+endif()
+if(AX_ENABLE_EXT_FAIRYGUI)
+  list(APPEND lua_bindings_generated_files generated/axlua_fairygui_gen.cpp)
+endif()
 
 # Large generated modules are emitted as independently compiled shards.  The
 # stable *_gen.cpp dispatcher remains in the explicit list above, while this
@@ -249,6 +283,8 @@ endif()
 
 ax_config_pred(${_AX_LUA_LIB} AX_ENABLE_EXT_SPINE)
 ax_config_pred(${_AX_LUA_LIB} AX_ENABLE_EXT_FAIRYGUI)
+ax_config_pred(${_AX_LUA_LIB} AX_ENABLE_EXT_SCENEEXT)
+ax_config_pred(${_AX_LUA_LIB} AX_ENABLE_EXT_SCENEIO)
 
 get_target_property(lua_ext_depend 3rdparty AX_LUA_DEPEND)
 target_link_libraries(${_AX_LUA_LIB} ${lua_ext_depend})

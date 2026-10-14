@@ -217,6 +217,7 @@ static void extendEventListenerAssetsManagerEx(lua_State* L)
     lua_pop(L, 1);
 }
 
+#if defined(AX_ENABLE_EXT_PARTICLE3D)
 int axlua_extension_ParticleSystem3D_getParticlePool(lua_State* luaState)
 {
     int argc                  = 0;
@@ -358,6 +359,7 @@ static void extendParticlePool(lua_State* luaState)
     }
     lua_pop(luaState, 1);
 }
+#endif
 
 class LuaScrollViewDelegate : public Object, public ScrollViewDelegate
 {
@@ -1025,8 +1027,10 @@ int register_all_ax_extension_adapter(lua_State* luaState)
     extendAssetsManager(luaState);
     extendManifest(luaState);
     extendEventListenerAssetsManagerEx(luaState);
+#if defined(AX_ENABLE_EXT_PARTICLE3D)
     extendParticleSystem3D(luaState);
     extendParticlePool(luaState);
+#endif
     extendScrollView(luaState);
     extendTableView(luaState);
     return 0;

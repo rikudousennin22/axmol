@@ -343,12 +343,16 @@ void register_ax_base_members_4(lua_State* L)
     class_20_Pass.method("draw", static_cast<void (ax::Pass::*)(ax::MeshCommand *, float, rhi::Buffer *, rhi::Buffer *, ax::MeshCommand::PrimitiveType, ax::MeshCommand::IndexFormat, unsigned int, const ax::Mat4 &)>(&ax::Pass::draw));
     class_20_Pass.method("getName", static_cast<std::string_view (ax::Pass::*)() const>(&ax::Pass::getName));
     class_20_Pass.method("getProgramState", static_cast<rhi::ProgramState * (ax::Pass::*)() const>(&ax::Pass::getProgramState));
+#if defined(AX_ENABLE_3D)
     class_20_Pass.method("getVertexAttributeBinding", static_cast<ax::VertexInputBinding * (ax::Pass::*)() const>(&ax::Pass::getVertexAttributeBinding));
+#endif
     class_20_Pass.method("setName", static_cast<void (ax::Pass::*)(std::string_view)>(&ax::Pass::setName));
     class_20_Pass.method("setTechnique", static_cast<void (ax::Pass::*)(ax::Technique *)>(&ax::Pass::setTechnique));
     class_20_Pass.method("setUniformNormTexture", static_cast<void (ax::Pass::*)(uint32_t, rhi::Texture *)>(&ax::Pass::setUniformNormTexture));
     class_20_Pass.method("setUniformTexture", static_cast<void (ax::Pass::*)(uint32_t, rhi::Texture *)>(&ax::Pass::setUniformTexture));
+#if defined(AX_ENABLE_3D)
     class_20_Pass.method("setVertexInputBinding", static_cast<void (ax::Pass::*)(ax::VertexInputBinding *)>(&ax::Pass::setVertexInputBinding));
+#endif
     class_20_Pass.method("updateMVPUniform", static_cast<void (ax::Pass::*)(ax::MeshCommand *, const ax::Mat4 &)>(&ax::Pass::updateMVPUniform));
     auto class_21_Place = module.class_<ax::Place>("Place");
     class_21_Place.bases<ax::ActionInstant, ax::FiniteTimeAction, ax::Action, ax::Object>();

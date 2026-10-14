@@ -304,6 +304,7 @@ public:
     @since v0.8
     */
     void setAliasTexParameters();
+    bool isAntialiasEnabled() const;
 
     /** Returns the pixel format.
      @since v2.0

@@ -597,6 +597,7 @@ void Texture2D::setAliasTexParameters()
     }
 
     _flags &= ~TextureFlag::ANTIALIAS_ENABLED;
+    _samplerFlags |= TextureSamplerFlag::POINT_SAMPLER;
 
     rhi::SamplerDesc desc;
     chooseSamplerDesc(false, _rhiTexture->hasMipmaps(), desc);
@@ -610,10 +611,16 @@ void Texture2D::setAntiAliasTexParameters()
         return;
     }
     _flags |= TextureFlag::ANTIALIAS_ENABLED;
+    _samplerFlags &= ~TextureSamplerFlag::POINT_SAMPLER;
 
     rhi::SamplerDesc desc;
     chooseSamplerDesc(true, _rhiTexture->hasMipmaps(), desc);
     _rhiTexture->updateSamplerDesc(desc);
+}
+
+bool Texture2D::isAntialiasEnabled() const
+{
+    return (_flags & TextureFlag::ANTIALIAS_ENABLED) != 0;
 }
 
 const char* Texture2D::getStringForFormat() const

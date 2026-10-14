@@ -206,6 +206,8 @@ public:
      */
     Vec2 getLastPointerPosition() const { return _lastPointerPosition; }
 
+    bool isPointerActive(intptr_t pointerId) const;
+
     void resetInput();
 
 protected:

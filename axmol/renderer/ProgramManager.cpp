@@ -40,6 +40,16 @@ void ProgramManager::destroyInstance()
 
 int ProgramManager::chooseSpriteProgramType(rhi::PixelFormat pixelFormat)
 {
+    return chooseSpriteProgramType(pixelFormat, false);
+}
+
+int ProgramManager::chooseSpriteProgramType(rhi::PixelFormat pixelFormat, bool isAlias)
+{
+    if (isAlias)
+    {
+        return rhi::ProgramType::POSITION_TEXTURE_COLOR_ALIAS;
+    }
+
     switch (pixelFormat)
     {
     case PixelFormat::R8:

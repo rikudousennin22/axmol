@@ -16,8 +16,10 @@ namespace ax::lua {
 void register_ax_extension(lua_State* L)
 {
     auto module = axlua::Module::from(L, "ax", "ax");
+#if defined(AX_ENABLE_EXT_PARTICLE3D)
     auto class_0_PUParticleSystem3D = module.class_<ax::PUParticleSystem3D>("PUParticleSystem3D");
     auto class_1_ParticleSystem3D = module.class_<ax::ParticleSystem3D>("ParticleSystem3D");
+#endif
     auto class_2_AssetsManager = module.class_<ax::ext::AssetsManager>("AssetsManager");
     auto class_3_AssetsManagerEx = module.class_<ax::ext::AssetsManagerEx>("AssetsManagerEx");
     auto class_4_EventAssetsManagerEx = module.class_<ax::ext::EventAssetsManagerEx>("EventAssetsManagerEx");
@@ -26,6 +28,7 @@ void register_ax_extension(lua_State* L)
     auto class_7_ScrollView = module.class_<ax::ext::ScrollView>("ScrollView");
     auto class_8_TableView = module.class_<ax::ext::TableView>("TableView");
     auto class_9_TableViewCell = module.class_<ax::ext::TableViewCell>("TableViewCell");
+#if defined(AX_ENABLE_EXT_PARTICLE3D)
     class_0_PUParticleSystem3D.bases<ax::ParticleSystem3D, ax::Node, ax::Object, ax::BlendProtocol>();
     class_0_PUParticleSystem3D.constructors<ax::PUParticleSystem3D()>();
     class_0_PUParticleSystem3D.method("calulateRotationOffset", static_cast<void (ax::PUParticleSystem3D::*)()>(&ax::PUParticleSystem3D::calulateRotationOffset));
@@ -85,6 +88,7 @@ void register_ax_extension(lua_State* L)
     class_1_ParticleSystem3D.method("setRender", static_cast<void (ax::ParticleSystem3D::*)(ax::Particle3DRender *)>(&ax::ParticleSystem3D::setRender));
     class_1_ParticleSystem3D.method("startParticleSystem", static_cast<void (ax::ParticleSystem3D::*)()>(&ax::ParticleSystem3D::startParticleSystem));
     class_1_ParticleSystem3D.method("stopParticleSystem", static_cast<void (ax::ParticleSystem3D::*)()>(&ax::ParticleSystem3D::stopParticleSystem));
+#endif
     class_2_AssetsManager.bases<ax::Node, ax::Object>();
     class_2_AssetsManager.method("checkUpdate", static_cast<bool (ax::ext::AssetsManager::*)()>(&ax::ext::AssetsManager::checkUpdate));
     class_2_AssetsManager.method("deleteVersion", static_cast<void (ax::ext::AssetsManager::*)()>(&ax::ext::AssetsManager::deleteVersion));
@@ -189,10 +193,12 @@ void register_ax_extension(lua_State* L)
     class_9_TableViewCell.method("getIdx", static_cast<ssize_t (ax::ext::TableViewCell::*)() const>(&ax::ext::TableViewCell::getIdx));
     class_9_TableViewCell.method("reset", static_cast<void (ax::ext::TableViewCell::*)()>(&ax::ext::TableViewCell::reset));
     class_9_TableViewCell.method("setIdx", static_cast<void (ax::ext::TableViewCell::*)(ssize_t)>(&ax::ext::TableViewCell::setIdx));
+#if defined(AX_ENABLE_EXT_PARTICLE3D)
     auto enum_0_State = class_1_ParticleSystem3D.get_or_create_table("State");
     enum_0_State.set("STOP", 0ll);
     enum_0_State.set("RUNNING", 1ll);
     enum_0_State.set("PAUSE", 2ll);
+#endif
     auto enum_1_ErrorCode = class_2_AssetsManager.get_or_create_table("ErrorCode");
     enum_1_ErrorCode.set("CREATE_FILE", 0ll);
     enum_1_ErrorCode.set("NETWORK", 1ll);

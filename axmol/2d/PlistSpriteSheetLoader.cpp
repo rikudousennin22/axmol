@@ -216,18 +216,21 @@ SpriteFrame* PlistSpriteSheetLoader::parseFrame(const ValueMap& frameDict,
         auto textureRotated   = optValue(frameDict, "textureRotated"sv).asBool();
 
         // get aliases
-        auto& aliases = optValue(frameDict, "aliases"sv).asValueVector();
-
-        for (const auto& value : aliases)
+        auto itAliases = frameDict.find("aliases"sv);
+        if (itAliases != frameDict.end() && itAliases->second.getType() == Value::Type::VECTOR)
         {
-            auto oneAlias = value.asString();
-            if (std::find(outFrameAlias.begin(), outFrameAlias.end(), oneAlias) == outFrameAlias.end())
+            const auto& aliases = itAliases->second.asValueVector();
+            for (const auto& value : aliases)
             {
-                outFrameAlias.emplace_back(std::move(oneAlias));
-            }
-            else
-            {
-                AXLOGW("WARNING: an alias with name {} already exists", oneAlias);
+                auto oneAlias = value.asString();
+                if (std::find(outFrameAlias.begin(), outFrameAlias.end(), oneAlias) == outFrameAlias.end())
+                {
+                    outFrameAlias.emplace_back(std::move(oneAlias));
+                }
+                else
+                {
+                    AXLOGW("WARNING: an alias with name {} already exists", oneAlias);
+                }
             }
         }
 

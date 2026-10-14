@@ -11,15 +11,29 @@
 #include "lua-bindings/runtime/lua_module_register.h"
 
 #include "lua-bindings/adapters/network/axlua_network_adapter.h"
+#if defined(AX_ENABLE_EXT_SCENEEXT)
 #include "lua-bindings/adapters/sceneext/axlua_sceneext_adapter.hpp"
+#endif
+#if defined(AX_ENABLE_EXT_SCENEIO)
 #include "lua-bindings/adapters/sceneio/axlua_sceneio_adapter.hpp"
+#endif
 #include "lua-bindings/adapters/extension/axlua_extension_adapter.h"
 #include "lua-bindings/adapters/ui/axlua_ui_adapter.hpp"
+#if defined(AX_ENABLE_EXT_SPINE)
 #include "lua-bindings/adapters/spine/axlua_spine_adapter.hpp"
+#endif
+#if defined(AX_ENABLE_3D)
 #include "lua-bindings/adapters/3d/axlua_3d_adapter.h"
+#endif
+#if defined(AX_ENABLE_PHYSICS_3D)
 #include "lua-bindings/adapters/physics3d/axlua_physics3d_adapter.h"
+#endif
+#if defined(AX_ENABLE_NAVMESH)
 #include "lua-bindings/adapters/navmesh/axlua_navmesh_adapter.h"
+#endif
+#if defined(AX_ENABLE_EXT_FAIRYGUI)
 #include "lua-bindings/adapters/fairygui/axlua_fairygui_adapter.hpp"
+#endif
 #include "lua-bindings/generated/axlua_audioengine_gen.h"
 #include "lua_cjson.h"
 #include "yasio/bindings/yasio_axlua.hpp"
@@ -44,15 +58,21 @@ int lua_module_register(lua_State* L)
 {
     // Don't change the module register order unless you know what your are doing
     register_network_module(L);
+#if defined(AX_ENABLE_EXT_SCENEEXT)
     register_sceneext_module(L);
+#endif
+#if defined(AX_ENABLE_EXT_SCENEIO)
     register_sceneio_module(L);
+#endif
     register_ui_module(L);
     register_extension_module(L);
     // TODO arnold
 #if defined(AX_ENABLE_EXT_SPINE)
     register_spine_module(L);
 #endif  // defined(AX_ENABLE_EXT_SPINE)
+#if defined(AX_ENABLE_3D)
     register_ax_3d_module(L);
+#endif
 #if defined(AX_ENABLE_AUDIO) && (AX_TARGET_PLATFORM == AX_PLATFORM_ANDROID || AX_TARGET_PLATFORM == AX_PLATFORM_IOS || \
                                  AX_TARGET_PLATFORM == AX_PLATFORM_MAC || defined(_WIN32) ||                           \
                                  AX_TARGET_PLATFORM == AX_PLATFORM_LINUX || AX_TARGET_PLATFORM == AX_PLATFORM_WASM)

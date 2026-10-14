@@ -501,6 +501,11 @@ PointerEvent* InputSystem::findPointerEvent(intptr_t pointerId) const
     return iter != _pointerEvents.end() ? *iter : nullptr;
 }
 
+bool InputSystem::isPointerActive(intptr_t pointerId) const
+{
+    return findPointerEvent(pointerId) != nullptr;
+}
+
 PointerEvent* InputSystem::fetchPointerEvent(intptr_t pointerId)
 {
     if (auto event = findPointerEvent(pointerId))

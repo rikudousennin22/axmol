@@ -49,6 +49,7 @@ public:
     static void destroyInstance();
 
     static int chooseSpriteProgramType(rhi::PixelFormat pixelFormat);
+    static int chooseSpriteProgramType(rhi::PixelFormat pixelFormat, bool isAlias);
 
     /// get built-in program
     Program* getBuiltinProgram(uint32_t type);

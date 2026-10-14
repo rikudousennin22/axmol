@@ -7,6 +7,11 @@
 
  SPDX-License-Identifier: MIT
  ****************************************************************************/
+#include "axmol/platform/PlatformConfig.h"
+#include "axmol/base/Config.h"
+
+#if defined(AX_ENABLE_3D)
+
 #include "lua-bindings/adapters/3d/axlua_3d_adapter.h"
 #include "lua-bindings/generated/axlua_3d_gen.h"
 #include "lua-bindings/runtime/axlua_conversions.h"
@@ -864,3 +869,5 @@ int register_ax_3d_module(lua_State* L)
 
     return 1;
 }
+
+#endif  // defined(AX_ENABLE_3D)

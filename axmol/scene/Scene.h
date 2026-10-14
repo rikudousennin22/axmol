@@ -74,7 +74,7 @@ public:
      * @brief Returns the default camera mode for this scene.
      * Override in subclasses to control how the default camera is initialized.
      */
-    virtual CameraMode getDefaultCameraMode() const { return CameraMode::Classic; }
+    virtual CameraMode getDefaultCameraMode() const { return CameraMode::Ortho; }
 
     /** Get lights.
      * @return The vector of lights.

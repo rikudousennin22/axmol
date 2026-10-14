@@ -40,8 +40,10 @@
 #include "assets-manager/src/assets-manager/Manifest.h"
 
 // Particle System, include Particle Universe Particle System
+#if defined(AX_ENABLE_3D)
 #include "Particle3D/src/Particle3D/Particle3DRender.h"
 #include "Particle3D/src/Particle3D/ParticleSystem3D.h"
 #include "Particle3D/src/Particle3D/PU/PUParticleSystem3D.h"
+#endif
 
 #include "svg/src/SVG.h"

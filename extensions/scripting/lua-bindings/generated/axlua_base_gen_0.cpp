@@ -52,7 +52,9 @@ void register_ax_base_types_0(lua_State* L)
     module.class_<ax::BezierConfig>("BezierConfig");
     module.class_<ax::BezierTo>("BezierTo");
     module.class_<ax::Blink>("Blink");
+#if defined(AX_ENABLE_3D)
     module.class_<ax::Bone3D>("Bone3D");
+#endif
     module.class_<ax::CallFunc>("CallFunc");
     module.class_<ax::Camera>("Camera");
     module.class_<ax::CameraBackgroundBrush>("CameraBackgroundBrush");
@@ -258,8 +260,10 @@ void register_ax_base_members_0(lua_State* L)
     class_30_Blink.constructors<ax::Blink()>();
     class_30_Blink.static_method("create", static_cast<ax::Blink * (*)(float, int)>(&ax::Blink::create));
     class_30_Blink.method("initWithDuration", static_cast<bool (ax::Blink::*)(float, int)>(&ax::Blink::initWithDuration));
+#if defined(AX_ENABLE_3D)
     auto class_31_Bone3D = module.class_<ax::Bone3D>("Bone3D");
     class_31_Bone3D.bases<ax::Object>();
+#endif
     auto class_32_CallFunc = module.class_<ax::CallFunc>("CallFunc");
     class_32_CallFunc.bases<ax::ActionInstant, ax::FiniteTimeAction, ax::Action, ax::Object>();
     class_32_CallFunc.constructors<ax::CallFunc()>();

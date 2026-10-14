@@ -755,38 +755,47 @@ std::string_view Value::asStringRef() const
 
 ValueVector& Value::asValueVector()
 {
-    AXASSERT(_type == Type::VECTOR, "The value type isn't Type::VECTOR");
-    return *_field.vectorVal;
+    if (_type == Type::VECTOR)
+        return *_field.vectorVal;
+    static ValueVector emptyVector;
+    return emptyVector;
 }
 
 const ValueVector& Value::asValueVector() const
 {
-    AXASSERT(_type == Type::VECTOR, "The value type isn't Type::VECTOR");
-    return *_field.vectorVal;
+    if (_type == Type::VECTOR)
+        return *_field.vectorVal;
+    return ValueVectorNull;
 }
 
 ValueMap& Value::asValueMap()
 {
-    AXASSERT(_type == Type::MAP, "The value type isn't Type::MAP");
-    return *_field.mapVal;
+    if (_type == Type::MAP)
+        return *_field.mapVal;
+    static ValueMap emptyMap;
+    return emptyMap;
 }
 
 const ValueMap& Value::asValueMap() const
 {
-    AXASSERT(_type == Type::MAP, "The value type isn't Type::MAP");
-    return *_field.mapVal;
+    if (_type == Type::MAP)
+        return *_field.mapVal;
+    return ValueMapNull;
 }
 
 ValueMapIntKey& Value::asIntKeyMap()
 {
-    AXASSERT(_type == Type::INT_KEY_MAP, "The value type isn't Type::INT_KEY_MAP");
-    return *_field.intKeyMapVal;
+    if (_type == Type::INT_KEY_MAP)
+        return *_field.intKeyMapVal;
+    static ValueMapIntKey emptyIntKeyMap;
+    return emptyIntKeyMap;
 }
 
 const ValueMapIntKey& Value::asIntKeyMap() const
 {
-    AXASSERT(_type == Type::INT_KEY_MAP, "The value type isn't Type::INT_KEY_MAP");
-    return *_field.intKeyMapVal;
+    if (_type == Type::INT_KEY_MAP)
+        return *_field.intKeyMapVal;
+    return ValueMapIntKeyNull;
 }
 
 static std::string getTabs(int depth)

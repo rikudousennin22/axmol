@@ -421,7 +421,8 @@ void Sprite::setTexture(Texture2D* texture)
 
     if (needsUpdatePS)
     {
-        auto programType = ProgramManager::chooseSpriteProgramType(_texture->getPixelFormat());
+        const bool isAlias = (_texture->getSamplerFlags() & TextureSamplerFlag::POINT_SAMPLER) != 0;
+        auto programType   = ProgramManager::chooseSpriteProgramType(_texture->getPixelFormat(), isAlias);
         setProgramState(programType);
     }
     else
@@ -1559,6 +1560,13 @@ void Sprite::setSpriteFrame(SpriteFrame* spriteFrame)
     // update texture before updating texture rect
     if (texture != _texture)
         setTexture(texture);
+    else if (_autoUpdatePS && _texture && _programState)
+    {
+        const bool isAlias = (_texture->getSamplerFlags() & TextureSamplerFlag::POINT_SAMPLER) != 0;
+        auto expectedPT    = ProgramManager::chooseSpriteProgramType(_texture->getPixelFormat(), isAlias);
+        if (_programState->getProgram()->getProgramType() != expectedPT)
+            setProgramState(expectedPT);
+    }
 
     // update rect
     _rectRotated = spriteFrame->isRotated();

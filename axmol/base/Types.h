@@ -76,8 +76,9 @@ struct TextureSamplerFlag
 {
     enum
     {
-        DEFAULT      = 0,
-        DUAL_SAMPLER = 1 << 1,
+        DEFAULT       = 0,
+        DUAL_SAMPLER  = 1 << 1,
+        POINT_SAMPLER = 1 << 2,
     };
 };
 

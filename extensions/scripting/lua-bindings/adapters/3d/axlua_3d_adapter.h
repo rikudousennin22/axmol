@@ -24,6 +24,8 @@
  ****************************************************************************/
 #pragma once
 
+#if defined(AX_ENABLE_3D)
+
 #include "lua-bindings/runtime/axlua_adapter.h"
 /**
  * @addtogroup lua
@@ -41,3 +43,5 @@ int register_ax_3d_module(lua_State* L);
 
 // end group
 /// @}
+
+#endif  // defined(AX_ENABLE_3D)
